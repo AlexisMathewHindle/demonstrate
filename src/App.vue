@@ -76,7 +76,7 @@ const username = ref("");
 const content = ref("");
 const branches = ref([]);
 const repo = "AlexisMathewHindle/demonstrate";
-const token = "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"; // Ideally, this should not be hardcoded
+const token = process.env.VUE_APP_GITHUB_TOKEN; // Ideally, this should not be hardcoded
 
 // const fetchBranches = async () => {
 //   try {
