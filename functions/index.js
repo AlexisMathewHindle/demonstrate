@@ -23,6 +23,9 @@ exports.createBranchAndPR = functions.https.onRequest((req, res) => {
     };
 
     try {
+      // Check if the token is valid
+      await axios.get("https://api.github.com/user", { headers });
+
       const defaultBranchInfo = await axios.get(`${baseUrl}/branches/main`, {
         headers,
       });
@@ -65,9 +68,13 @@ exports.createBranchAndPR = functions.https.onRequest((req, res) => {
       });
     } catch (error) {
       console.error("Error during API operation:", error.message);
-      res
-        .status(500)
-        .send(error.response ? error.response.data : "Unknown error");
+      if (error.response && error.response.status === 401) {
+        res.status(401).send("Unauthorized: Bad credentials");
+      } else {
+        res
+          .status(500)
+          .send(error.response ? error.response.data : "Unknown error");
+      }
     }
   });
 });
@@ -93,13 +100,20 @@ exports.listBranches = functions.https.onRequest((req, res) => {
     const baseUrl = `https://api.github.com/repos/${repo}/branches`;
 
     try {
+      // Check if the token is valid
+      await axios.get("https://api.github.com/user", { headers });
+
       const response = await axios.get(baseUrl, { headers });
       res.status(200).json(response.data);
     } catch (error) {
       console.error("Error fetching branches:", error.message);
-      res
-        .status(500)
-        .send(error.response ? error.response.data : "Unknown error");
+      if (error.response && error.response.status === 401) {
+        res.status(401).send("Unauthorized: Bad credentials");
+      } else {
+        res
+          .status(500)
+          .send(error.response ? error.response.data : "Unknown error");
+      }
     }
   });
 });

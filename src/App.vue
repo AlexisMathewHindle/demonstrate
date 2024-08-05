@@ -76,19 +76,19 @@ const username = ref("");
 const content = ref("");
 const branches = ref([]);
 const repo = "AlexisMathewHindle/demonstrate";
-const token = "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"; // Ideally, this should not be hardcoded
+const token = "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"; // Ideally, this should not be hardcoded
 
-const fetchBranches = async () => {
-  try {
-    const response = await axios.get(
-      `https://us-central1-demonstrate-1d527.cloudfunctions.net/listBranches?repo=${repo}&token=${token}`
-    );
-    branches.value = response.data;
-  } catch (error) {
-    console.error("Failed to fetch branches:", error);
-    alert("Failed to fetch branches. Check the console for more information.");
-  }
-};
+// const fetchBranches = async () => {
+//   try {
+//     const response = await axios.get(
+//       `https://us-central1-demonstrate-1d527.cloudfunctions.net/listBranches?repo=${repo}&token=${token}`
+//     );
+//     branches.value = response.data;
+//   } catch (error) {
+//     console.error("Failed to fetch branches:", error);
+//     alert("Failed to fetch branches. Check the console for more information.");
+//   }
+// };
 
 const formatDate = (date) => {
   const dd = String(date.getDate()).padStart(2, "0");
@@ -129,7 +129,7 @@ const createBranch = async () => {
 };
 
 onMounted(() => {
-  fetchBranches();
+  // fetchBranches();
 });
 </script>
 
