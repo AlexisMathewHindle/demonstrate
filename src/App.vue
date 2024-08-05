@@ -101,9 +101,12 @@ const createBranch = async () => {
   console.log(content.value);
   const today = new Date();
   const formattedDate = formatDate(today);
+  const randomId = Math.floor(Math.random() * 1000);
   const branchName = `${title.value.replace(/\s+/g, "-").toLowerCase()}-${
     type.value
-  }-${username.value.replace(/\s+/g, "-").toLowerCase()}-${formattedDate}`;
+  }-${username.value
+    .replace(/\s+/g, "-")
+    .toLowerCase()}-${formattedDate}-${randomId}`;
   console.log("Generated branch name:", branchName);
 
   try {
