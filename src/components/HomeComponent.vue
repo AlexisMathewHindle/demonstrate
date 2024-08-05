@@ -1,5 +1,4 @@
 <template>
-  <router-link to="/guides">Guides</router-link>
   <div class="branch__create">
     <label for="title">Enter title:</label>
     <input v-model="title" name="title" />

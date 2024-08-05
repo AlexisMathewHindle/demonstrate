@@ -12,6 +12,9 @@ const routes = [
   {
     path: "/guides",
     name: "Guides",
+    props: {
+      type: "guides",
+    },
     component: () => import("@/components/ListComponent.vue"),
   },
   {
