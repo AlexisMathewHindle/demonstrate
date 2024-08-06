@@ -132,6 +132,7 @@ const createBranch = async () => {
 
 onMounted(() => {
   fetchBranches();
+  console.log(token);
 });
 </script>
 
