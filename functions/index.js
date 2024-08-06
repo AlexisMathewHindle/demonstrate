@@ -1,6 +1,36 @@
 const functions = require("firebase-functions");
+
 const cors = require("cors")({ origin: true });
 const axios = require("axios");
+const fs = require("fs");
+const path = require("path");
+
+const markdownDir = path.join(__dirname, "markdown");
+
+exports.listMarkdownFiles = functions.https.onRequest((req, res) => {
+  console.log(markdownDir, "===== mark down dir");
+  fs.readdir(markdownDir, (err, files) => {
+    if (err) {
+      return res.status(500).send("Unable to scan files");
+    }
+    const markdownFiles = files.filter((file) => file.endsWith(".md"));
+    res.json(markdownFiles);
+  });
+});
+
+exports.getMarkdownFile = functions.https.onRequest((req, res) => {
+  const fileName = req.query.file;
+  if (!fileName) {
+    return res.status(400).send("File name is required");
+  }
+  const filePath = path.join(markdownDir, fileName);
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).send("Unable to read file");
+    }
+    res.send(data);
+  });
+});
 
 exports.createBranchAndPR = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
@@ -42,7 +72,16 @@ exports.createBranchAndPR = functions.https.onRequest((req, res) => {
 
       const path = type === "story" ? "stories" : "guides";
       await axios.put(
-        `${baseUrl}/contents/${path}/${branchName}.md`,
+        `${baseUrl}/contents/functions/markdown/${path}/${branchName}.md`,
+        {
+          message: `Add new ${type}`,
+          content: Buffer.from(content).toString("base64"),
+          branch: branchName,
+        },
+        { headers }
+      );
+      await axios.put(
+        `${baseUrl}/contents/src/assets/markdown/${path}/${branchName}.md`,
         {
           message: `Add new ${type}`,
           content: Buffer.from(content).toString("base64"),

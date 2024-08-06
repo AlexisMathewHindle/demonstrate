@@ -13,6 +13,8 @@
     "core-js": "^3.8.3",
     "dotenv": "^16.4.5",
     "firebase": "^10.12.3",
+    "markdown-it": "^14.1.0",
+    "marked": "^13.0.3",
     "quill": "^2.0.2",
     "vue": "^3.2.13",
     "vue-router": "^4.4.2"
