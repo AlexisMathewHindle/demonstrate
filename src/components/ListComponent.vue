@@ -37,7 +37,6 @@ export default {
 
     const loadFiles = () => {
       let context;
-      console.log(props.type);
       if (props.type === "guides") {
         context = guidesContext;
       } else if (props.type === "stories") {
@@ -47,7 +46,6 @@ export default {
       }
 
       files.value = context.keys().map((key) => {
-        console.log(key);
         const contents = context(key).default;
         console.log(contents);
         // const titleLine = contents
