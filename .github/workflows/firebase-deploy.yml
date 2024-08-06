@@ -12,13 +12,12 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
 
-      - name: Create .env.production
-        run: echo "${{ secrets.GITHUB }}" > .env.production
-
       - name: Install Dependencies
         run: npm install # or yarn install, depending on your project
 
       - name: Build
+        env:
+          GITHUB: ${{ secrets.GITHUB }}
         run: npm run build # adjust this for your build command
 
       - name: Deploy to Firebase
