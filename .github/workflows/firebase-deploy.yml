@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create .env.production
-        run: echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
+        run: echo "${{ secrets.GITHUB }}" > .env.production
 
       - name: Install Dependencies
         run: npm install # or yarn install, depending on your project

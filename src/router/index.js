@@ -26,7 +26,7 @@ const routes = [
     component: () => import("@/components/ListComponent.vue"),
   },
   {
-    path: "/content/",
+    path: "/content/:type",
     name: "ContentView",
     component: () => import("@/components/ContentComponent.vue"),
   },
