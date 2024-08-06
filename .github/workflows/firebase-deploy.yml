@@ -17,7 +17,7 @@ jobs:
 
       - name: Build
         env:
-          GITHUB: ${{ secrets.VUE_APP_GITHUB_TOKEN }}
+          VUE_APP_GITHUB_TOKEN: ${{ secrets.VUE_APP_GITHUB_TOKEN }}
         run: npm run build # adjust this for your build command
 
       - name: Deploy to Firebase
